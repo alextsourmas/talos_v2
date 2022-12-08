@@ -29,7 +29,6 @@ from talos.results import calculate_performance
 from talos.results import view_portfolio_df
 from talos.results import view_stock_with_decision
 
-@st.experimental_memo
 def daily_trader(ticker: str, period: str, look_ahead_target: int, threshold_target: float, percent_change_list: list,
     log_returns_list: list, rsi_list: list, rate_of_change_list: list, macd_list: list, stochastic_list: list, add_all_ta_features: bool, 
     day_of_week: bool, train_days: int, test_days: int, xgb_cutoff: float, initial_cash: int, comission_percent: int): 
