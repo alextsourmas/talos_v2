@@ -88,7 +88,7 @@ st.markdown("<h1 style=color: white;'>TALOS V2</h1>", unsafe_allow_html=True)
 st.markdown("<h3 style=color: white;'>Trade the markets using machine learning.</h3>", unsafe_allow_html=True)
 if st.button('TRADE'): 
 
-    st.write('Running UNG...')
+    st.write('Running UNG...please wait...')
 
     ung = daily_trader(ticker= 'UNG', period= '5Y', look_ahead_target= 1, threshold_target= 0.08, #0.08
             percent_change_list= [1, 2, 3, 5, 7, 14],
@@ -103,7 +103,7 @@ if st.button('TRADE'):
             xgb_cutoff= 0.7, #0.7
             initial_cash= 100000, comission_percent= 0.00070)
 
-    st.write('UNG completed. Running BOIL...')
+    st.write('UNG completed. Running BOIL...please wait...')
 
     boil = daily_trader(ticker= 'BOIL', period= '5Y', look_ahead_target= 1, threshold_target= 0.7, 
         percent_change_list= [1, 2, 3, 5, 7, 14],
@@ -118,7 +118,7 @@ if st.button('TRADE'):
         xgb_cutoff= 0.62, 
         initial_cash= 100000, comission_percent= 0.00070)
 
-    st.write('BOIL completed. Running MSTR...')
+    st.write('BOIL completed. Running MSTR...please wait...')
 
     mstr = daily_trader(ticker= 'MSTR', period= '5Y', look_ahead_target= 1, threshold_target=0.7, #0.7
             percent_change_list= [1, 2, 3, 5, 7, 14],
@@ -133,7 +133,7 @@ if st.button('TRADE'):
             xgb_cutoff= 0.85, 
             initial_cash= 100000, comission_percent= 0.00070)
 
-    st.write('MSTR Completed. Running TSLA...')
+    st.write('MSTR Completed. Running TSLA...please wait...')
 
 
     tsla = daily_trader(ticker= 'TSLA', period= '5Y', look_ahead_target= 1, threshold_target=0.07, 
@@ -149,7 +149,7 @@ if st.button('TRADE'):
         xgb_cutoff= 0.4, 
         initial_cash= 100000, comission_percent= 0.00070)
 
-    st.write('TSLA Completed. Running NAIL...')
+    st.write('TSLA Completed. Running NAIL...please wait...')
 
 
     nail = daily_trader(ticker= 'NAIL', period= '4Y', look_ahead_target= 1, threshold_target= 0.22, 
