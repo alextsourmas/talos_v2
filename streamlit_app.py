@@ -102,6 +102,8 @@ if st.button('TRADE'):
             xgb_cutoff= 0.7, #0.7
             initial_cash= 100000, comission_percent= 0.00070)
 
+    st.write('UNG completed. Running BOIL...')
+
     boil = daily_trader(ticker= 'BOIL', period= '5Y', look_ahead_target= 1, threshold_target= 0.7, 
         percent_change_list= [1, 2, 3, 5, 7, 14],
         log_returns_list= [1, 2, 3, 5, 7, 14], 
@@ -114,6 +116,8 @@ if st.button('TRADE'):
         train_days= 100, test_days= 10, 
         xgb_cutoff= 0.62, 
         initial_cash= 100000, comission_percent= 0.00070)
+
+    st.write('BOIL completed. Running MSTR...')
 
     mstr = daily_trader(ticker= 'MSTR', period= '5Y', look_ahead_target= 1, threshold_target=0.7, #0.7
             percent_change_list= [1, 2, 3, 5, 7, 14],
@@ -128,6 +132,9 @@ if st.button('TRADE'):
             xgb_cutoff= 0.85, 
             initial_cash= 100000, comission_percent= 0.00070)
 
+    st.write('MSTR Completed. Running TSLA...')
+
+
     tsla = daily_trader(ticker= 'TSLA', period= '5Y', look_ahead_target= 1, threshold_target=0.07, 
         percent_change_list= [1, 2, 3, 5, 7, 14, 20],
         log_returns_list= [1, 2, 3, 5, 7, 14, 20], 
@@ -140,6 +147,9 @@ if st.button('TRADE'):
         train_days= 200, test_days= 10, 
         xgb_cutoff= 0.4, 
         initial_cash= 100000, comission_percent= 0.00070)
+
+    st.write('TSLA Completed. Running NAIL...')
+
 
     nail = daily_trader(ticker= 'NAIL', period= '4Y', look_ahead_target= 1, threshold_target= 0.22, 
             percent_change_list= [1, 2, 3, 5, 7, 14, 20],
