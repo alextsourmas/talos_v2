@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np 
-import talib 
+# import talib 
 import ta 
 
 def engineer_target(close_column: pd.Series, look_ahead: int, threshold, binary=True, verbose=False):
@@ -22,12 +22,16 @@ def log_returns(dataframe: pd.DataFrame, close_column: pd.Series, look_back_list
 
 def rsi(dataframe: pd.DataFrame, close_column: pd.Series, look_back_list: list, verbose=False): 
     for look_back in look_back_list: 
-        dataframe['rsi_'+str(look_back)] = talib.RSI(close_column, timeperiod=look_back)
+        # dataframe['rsi_'+str(look_back)] = talib.RSI(close_column, timeperiod=look_back)
+        rsi_object = ta.momentum.RSIIndicator(close= close_column, window= look_back)
+        dataframe['rsi_'+str(look_back)] = rsi_object.rsi()
     return dataframe 
 
 def rate_of_change(dataframe: pd.DataFrame, close_column: pd.Series, look_back_list: list, verbose=False):
     for look_back in look_back_list: 
-        dataframe['rate_of_change_'+str(look_back)] = talib.ROCR100(close_column, timeperiod=look_back)
+    #     dataframe['rate_of_change_'+str(look_back)] = talib.ROCR100(close_column, timeperiod=look_back)
+        roc_object = ta.momentum.ROCIndicator(close=close_column, window=look_back)
+        dataframe['rate_of_change_'+str(look_back)] = roc_object.roc()
     return dataframe
 
 def macd(dataframe: pd.DataFrame, close_column: pd.Series, slow_fast_signal_list: list, verbose=False):

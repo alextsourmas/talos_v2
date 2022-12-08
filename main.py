@@ -168,34 +168,32 @@ def daily_trader(ticker: str, period: str, look_ahead_target: int, threshold_tar
 if __name__ == '__main__': 
 
 
-    ung = daily_trader(ticker= 'UNG', period= '5Y', look_ahead_target= 1, threshold_target= 0.08, #0.08
-            percent_change_list= [1, 2, 3, 5, 7, 14],
-            log_returns_list= [1, 2, 3, 5, 7, 14], 
-            rsi_list= [3, 7, 14, 21], 
-            rate_of_change_list= [2, 3, 5, 7, 12, 14, 20], 
-            macd_list= [(26, 12, 9)], 
-            stochastic_list= [(14, 3)], 
-            add_all_ta_features= False, 
-            day_of_week = True, 
-            train_days= 100, test_days= 10, 
-            xgb_cutoff= 0.7, #0.7
-            initial_cash= 100000, comission_percent= 0.00070)
+    # ung = daily_trader(ticker= 'UNG', period= '5Y', look_ahead_target= 1, threshold_target= 0.08, #0.08
+    #         percent_change_list= [1, 2, 3, 5, 7, 14],
+    #         log_returns_list= [1, 2, 3, 5, 7, 14], 
+    #         rsi_list= [3, 7, 14, 21], 
+    #         rate_of_change_list= [2, 3, 5, 7, 12, 14, 20], 
+    #         macd_list= [(26, 12, 9)], 
+    #         stochastic_list= [(14, 3)], 
+    #         add_all_ta_features= False, 
+    #         day_of_week = True, 
+    #         train_days= 100, test_days= 10, 
+    #         xgb_cutoff= 0.7, #0.7
+    #         initial_cash= 100000, comission_percent= 0.00070)
 
-    ung_buy_decision = ung['buy_decision'].iloc[-1]
-    print(ung_buy_decision)
 
-    # boil = daily_trader(ticker= 'BOIL', period= '5Y', look_ahead_target= 1, threshold_target= 0.7, 
-    #     percent_change_list= [1, 2, 3, 5, 7, 14],
-    #     log_returns_list= [1, 2, 3, 5, 7, 14], 
-    #     rsi_list= [14], 
-    #     rate_of_change_list= [2, 3, 5, 7, 12, 14, 20], 
-    #     macd_list= [(13, 6, 4),(26, 12, 9)], 
-    #     stochastic_list= [(14, 3), (26, 12)], 
-    #     add_all_ta_features= False, 
-    #     day_of_week = True, 
-    #     train_days= 100, test_days= 10, 
-    #     xgb_cutoff= 0.62, 
-    #     initial_cash= 100000, comission_percent= 0.00070)
+    boil = daily_trader(ticker= 'BOIL', period= '5Y', look_ahead_target= 1, threshold_target= 0.7, 
+        percent_change_list= [1, 2, 3, 5, 7, 14],
+        log_returns_list= [1, 2, 3, 5, 7, 14], 
+        rsi_list= [14], 
+        rate_of_change_list= [2, 3, 5, 7, 12, 14, 20], 
+        macd_list= [(13, 6, 4),(26, 12, 9)], 
+        stochastic_list= [(14, 3), (26, 12)], 
+        add_all_ta_features= False, 
+        day_of_week = True, 
+        train_days= 100, test_days= 10, 
+        xgb_cutoff= 0.62, 
+        initial_cash= 100000, comission_percent= 0.00070)
 
     # mstr = daily_trader(ticker= 'MSTR', period= '5Y', look_ahead_target= 1, threshold_target=0.7, #0.7
     #         percent_change_list= [1, 2, 3, 5, 7, 14],
