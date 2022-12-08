@@ -89,6 +89,8 @@ st.markdown("<h1 style=color: white;'>TALOS V2</h1>", unsafe_allow_html=True)
 st.markdown("<h3 style=color: white;'>Trade the markets using machine learning.</h3>", unsafe_allow_html=True)
 if st.button('TRADE'): 
 
+    st.write('Running UNG...')
+
     ung = daily_trader(ticker= 'UNG', period= '5Y', look_ahead_target= 1, threshold_target= 0.08, #0.08
             percent_change_list= [1, 2, 3, 5, 7, 14],
             log_returns_list= [1, 2, 3, 5, 7, 14], 
