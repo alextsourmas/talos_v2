@@ -127,7 +127,7 @@ def daily_trader(ticker: str, period: str, look_ahead_target: int, threshold_tar
 
     #Time series data engineering 
     df = df[200:].reset_index(drop=True) #drop rows where technicals empty 
-    # df = df[df['Date'] >= datetime(2014,1,1)]
+    df = df[df['Date'] >= datetime(2015,1,1)]
     train_df_dict, test_df_dict = time_series_split(stock_df=df, train_days=train_days, test_days=test_days, verbose=True)
     predictors = list(df)
     predictors.remove('Date')
@@ -140,7 +140,7 @@ def daily_trader(ticker: str, period: str, look_ahead_target: int, threshold_tar
 
     #Normalize backtest dates, calculate performance 
     final_df['Date'] = pd.to_datetime(final_df['Date'])
-    # final_df = final_df[final_df['Date'] >= datetime(2015,1,1)]
+    final_df = final_df[final_df['Date'] >= datetime(2016,1,1)]
     final_df = generate_buy_decision(dataframe= final_df, trade_signal_col_name= 'xgb_classifier_predictions')
 
     #Get most recent prediction
@@ -171,10 +171,6 @@ if __name__ == '__main__':
 
     results_df = pd.DataFrame(columns=['symbol', 'underlying_return', 'algo_return', 'alpha', 'sharpe_ratio'])
 
-    sp500_constituents = pd.read_csv('data/sp500_constituents.csv')
-
-    results_df = pd.DataFrame(columns=['symbol', 'underlying_return', 'algo_return', 'alpha', 'sharpe_ratio'])
-
     for i in range(0, len(sp500_constituents)): 
 
         try: 
@@ -189,7 +185,7 @@ if __name__ == '__main__':
                     stochastic_list= [(14, 3)], 
                     add_all_ta_features= False, 
                     day_of_week = True, 
-                    train_days= 200, test_days= 10, 
+                    train_days= 200, test_days= 20, 
                     xgb_cutoff= 0.5, #0.7
                     initial_cash= 100000, comission_percent= 0.00070)
 
@@ -214,217 +210,4 @@ if __name__ == '__main__':
 
         results_df = results_df.sort_values(by=['sharpe_ratio'], ascending=False)
         results_df.to_csv('data/top_picks.csv')
-
-
-    # ung = daily_trader(ticker= 'UNG', period= '5Y', look_ahead_target= 1, threshold_target= 0.08, #0.08
-    #         percent_change_list= [1, 2, 3, 5, 7, 14],
-    #         log_returns_list= [1, 2, 3, 5, 7, 14], 
-    #         rsi_list= [3, 7, 14, 21], 
-    #         rate_of_change_list= [2, 3, 5, 7, 12, 14, 20], 
-    #         macd_list= [(26, 12, 9)], 
-    #         stochastic_list= [(14, 3)], 
-    #         add_all_ta_features= False, 
-    #         day_of_week = True, 
-    #         train_days= 100, test_days= 10, 
-    #         xgb_cutoff= 0.7, #0.7
-    #         initial_cash= 100000, comission_percent= 0.00070)
-
-    # # Calculate the Sharpe ratio
-    # returns = ung["total_portfolio_value"].pct_change()
-    # avg_return = returns.mean()
-    # std_return = returns.std()
-    # sharpe_ratio = avg_return / std_return
-    # print(sharpe_ratio)
-
-
-
-    # boil = daily_trader(ticker= 'BOIL', period= '5Y', look_ahead_target= 1, threshold_target= 0.7, 
-    #     percent_change_list= [1, 2, 3, 5, 7, 14],
-    #     log_returns_list= [1, 2, 3, 5, 7, 14], 
-    #     rsi_list= [14], 
-    #     rate_of_change_list= [2, 3, 5, 7, 12, 14, 20], 
-    #     macd_list= [(13, 6, 4),(26, 12, 9)], 
-    #     stochastic_list= [(14, 3), (26, 12)], 
-    #     add_all_ta_features= False, 
-    #     day_of_week = True, 
-    #     train_days= 100, test_days= 10, 
-    #     xgb_cutoff= 0.62, 
-    #     initial_cash= 100000, comission_percent= 0.00070)
-
-    # # Calculate the Sharpe ratio
-    # returns = boil["total_portfolio_value"].pct_change()
-    # avg_return = returns.mean()
-    # std_return = returns.std()
-    # sharpe_ratio = avg_return / std_return
-    # print(sharpe_ratio)
-
-    # mstr = daily_trader(ticker= 'MSTR', period= '5Y', look_ahead_target= 1, threshold_target=0.7, #0.7
-    #         percent_change_list= [1, 2, 3, 5, 7, 14],
-    #         log_returns_list= [1, 2, 3, 5, 7, 14], 
-    #         rsi_list= [14], 
-    #         rate_of_change_list= [2, 3, 5, 7, 12, 14, 20], 
-    #         macd_list= [(13, 6, 4), (26, 12, 9)], 
-    #         stochastic_list= [(14, 3)], 
-    #         add_all_ta_features= True, 
-    #         day_of_week = True, 
-    #         train_days= 310, test_days= 10, 
-    #         xgb_cutoff= 0.85, 
-    #         initial_cash= 100000, comission_percent= 0.00070)
-
-    # # Calculate the Sharpe ratio
-    # returns = mstr["total_portfolio_value"].pct_change()
-    # avg_return = returns.mean()
-    # std_return = returns.std()
-    # sharpe_ratio = avg_return / std_return
-    # print(sharpe_ratio)
-
-    # tsla = daily_trader(ticker= 'TSLA', period= '5Y', look_ahead_target= 1, threshold_target=0.07, 
-    #     percent_change_list= [1, 2, 3, 5, 7, 14, 20],
-    #     log_returns_list= [1, 2, 3, 5, 7, 14, 20], 
-    #     rsi_list= [14], 
-    #     rate_of_change_list= [1, 2, 3, 5, 7, 12, 14, 20], 
-    #     macd_list= [(13, 6, 4), (26, 12, 9)], 
-    #     stochastic_list= [(14, 3)], 
-    #     add_all_ta_features= False, 
-    #     day_of_week = False, 
-    #     train_days= 200, test_days= 10, 
-    #     xgb_cutoff= 0.4, 
-    #     initial_cash= 100000, comission_percent= 0.00070)
-
-    # # Calculate the Sharpe ratio
-    # returns = tsla["total_portfolio_value"].pct_change()
-    # avg_return = returns.mean()
-    # std_return = returns.std()
-    # sharpe_ratio = avg_return / std_return
-    # print(sharpe_ratio)
-
-    # nail = daily_trader(ticker= 'NAIL', period= '4Y', look_ahead_target= 1, threshold_target= 0.22, 
-    #         percent_change_list= [1, 2, 3, 5, 7, 14, 20],
-    #         log_returns_list= [1, 2, 3, 5, 7, 14, 20], 
-    #         rsi_list= [14], 
-    #         rate_of_change_list= [2, 3, 5, 7, 12, 14, 20], 
-    #         macd_list= [(13, 6, 4), (26, 12, 9)], 
-    #         stochastic_list= [(14, 3)], 
-    #         add_all_ta_features= False, 
-    #         day_of_week = False, 
-    #         train_days= 310, test_days= 10, 
-    #         xgb_cutoff= 0.65, 
-    #         initial_cash= 100000, comission_percent= 0.00070)
-
-    # # Calculate the Sharpe ratio
-    # returns = nail["total_portfolio_value"].pct_change()
-    # avg_return = returns.mean()
-    # std_return = returns.std()
-    # sharpe_ratio = avg_return / std_return
-    # print(sharpe_ratio)
-
-
-
-
-
-
-
-
-    # nvda = daily_trader(ticker= 'NVDA', period= '4Y', look_ahead_target= 1, threshold_target= 0.9, 
-    #         percent_change_list= [1, 2, 3, 5, 7, 14, 20],
-    #         log_returns_list= [1, 2, 3, 5, 7, 14, 20], 
-    #         rsi_list= [14], 
-    #         rate_of_change_list= [2, 3, 5, 7, 12, 14, 20], 
-    #         macd_list= [(13, 6, 4)], 
-    #         stochastic_list= [(14, 3)], 
-    #         add_all_ta_features= False, 
-    #         day_of_week = True, 
-    #         train_days= 100, test_days= 10, 
-    #         xgb_cutoff= 0.55, 
-    #         initial_cash= 100000, comission_percent= 0.00070)
-    
-
-    spy = daily_trader(ticker= 'SPY', period= '5Y', look_ahead_target= 1, threshold_target=0.015, #0.015
-        percent_change_list= [1, 2, 3, 5, 7],
-        log_returns_list= [1, 2, 3, 5, 7], 
-        rsi_list= [14], 
-        rate_of_change_list= [1, 2, 3, 5, 7, 12, 14, 20], 
-        macd_list= [(26, 12, 9)], 
-        stochastic_list= [(14, 3)], 
-        add_all_ta_features= True, 
-        day_of_week = True, 
-        train_days= 200, test_days= 10, 
-        xgb_cutoff= 0.52, 
-        initial_cash= 100000, comission_percent= 0.00070)
-
-
-
-
-
-
-
-
- 
-  
-
-
-
-
-
-
-    # test = daily_trader(ticker= 'GME', period= '3Y', look_ahead_target= 1, threshold_target=0.00, 
-    #     percent_change_list= [1, 2, 3, 5, 7, 14],
-    #     log_returns_list= [1, 2, 3, 5, 7, 14], 
-    #     rsi_list= [14], 
-    #     rate_of_change_list= [1, 2, 3, 5, 7, 12, 14, 20], 
-    #     macd_list= [(13, 6, 4), (26, 12, 9)], 
-    #     stochastic_list= [(14, 3)], 
-    #     add_all_ta_features= False, 
-    #     day_of_week = True, 
-    #     train_days= 300, test_days= 10, 
-    #     xgb_cutoff= 0.50, 
-    #     initial_cash= 100000, comission_percent= 0.00070)
-
-
-  
-
-
-
-
-
-
-    # btc = minute_trader(ticker= 'BTCUSDT', period= 100, interval='5m', look_ahead_target= 2, threshold_target= 0.1, #best threshold target is 0.2
-    #     percent_change_list= [1, 2, 3, 5, 7, 14, 21, 50, 200],
-    #     log_returns_list= [1, 2, 3, 5, 7, 14, 21, 50, 200], 
-    #     rsi_list= [7, 14, 21, 50, 200], 
-    #     rate_of_change_list= [2, 3, 5, 7, 12, 14, 21, 50, 200], 
-    #     macd_list= [(13, 6, 4), (26, 12, 9), (52, 24, 18)], 
-    #     stochastic_list= [(14, 3), (28, 6), (56, 12)], 
-    #     add_all_ta_features= True, 
-    #     day_of_week = False, 
-    #     train_periods= 1000, test_periods= 10, 
-    #     xgb_cutoff= 0.95,
-    #     initial_cash= 100000, commission_percent= 0.0002, moving_stop_loss_points= 2000)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
